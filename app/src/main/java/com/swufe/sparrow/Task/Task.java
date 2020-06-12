@@ -48,9 +48,6 @@ public class Task extends ListActivity implements AdapterView.OnItemLongClickLis
 
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-        Log.i("Task", "onItemLongClick: 长按列表项position=" + position);
-        //删除操作
-        //构造对话框进行确认操作
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("提示").setMessage("请确认是否删除当前数据").setPositiveButton("是",new DialogInterface.OnClickListener(){
 

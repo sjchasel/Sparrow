@@ -6,40 +6,71 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Home"
+    android:background="@drawable/back"
     >
 
-    <Button
-        android:id="@+id/zixun"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="click"
-        android:text="资讯" />
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/task"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="click"
-        android:text="待办事项" />
+        <Button
+            android:id="@+id/zixun"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/news"
+            android:onClick="click"
+            android:textColor="#73FFFFFF"
+            android:text="资讯" />
 
-    <Button
-        android:id="@+id/cal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="click"
-        android:text="计算器" />
+        <Button
+            android:id="@+id/task"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/task"
+            android:onClick="click"
+            android:textColor="#73FFFFFF"
+            android:text="待办事项" />
 
-    <Button
-        android:id="@+id/memo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="click"
-        android:text="记事本" />
+        <Button
+            android:id="@+id/cal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/cal"
+            android:onClick="click"
+            android:textColor="#73FFFFFF"
+            android:text="计算器" />
 
-    <Button
-        android:id="@+id/weather"
+        <Button
+            android:id="@+id/memo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/memo"
+            android:onClick="click"
+            android:textColor="#73FFFFFF"
+            android:text="记事本" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/weather"
+            android:layout_width="wrap_content"
+            android:layout_height="74dp"
+            android:background="@drawable/weather"
+            android:onClick="click"
+            android:textColor="#73FFFFFF"
+            android:text="天气" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="click"
-        android:text="天气" />
+        android:orientation="horizontal">
+
+    </LinearLayout>
+
 </LinearLayout>

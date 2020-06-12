@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.swufe.sparrow.R;
-
+import com.swufe.sparrow.R.drawable;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,12 +25,13 @@ public class WeatherMain extends AppCompatActivity implements View.OnClickListen
     private String Weather;
     private String CityName;
     private String Tempeature;
+    Button sendRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather_main);
-        Button sendRequest =  findViewById(R.id.send_request);
+        sendRequest =  findViewById(R.id.send_request);
         weather =  findViewById(R.id.Weather);
         city = findViewById(R.id.City);
         temperature = findViewById(R.id.Temperature);
@@ -70,6 +71,19 @@ public class WeatherMain extends AppCompatActivity implements View.OnClickListen
             JSONObject now = results.getJSONObject(0).getJSONObject("now");//得到键值为"now"的JSONObject
             JSONObject location = results.getJSONObject(0).getJSONObject("location");   //得到键值为location的JSONObject
             Weather = now.getString("text");//得到"now"键值的JSONObject下的"text"属性,即天气信息
+
+//            if(Weather.equals("晴")){
+//                sendRequest.setBackgroundResource(getResources().getDrawable(R.drawable.qing));
+//            } else if(Weather.contains("多云")) {
+//                sendRequest.setBackgroundResource(getResources().getDrawable(R.drawable.yun));
+//            } else if (Weather.contains("阴")) {
+//                sendRequest.setBackgroundResource(getResources().getDrawable(R.drawable.yin));
+//            } else if (Weather.contains("雨")) {
+//                sendRequest.setBackgroundResource(getResources().getDrawable(R.drawable.yu));
+//            } else if (Weather.contains("雪")) {
+//                sendRequest.setBackgroundResource(getResources().getDrawable(R.drawable.xue));
+//            }
+
             Log.i("parseJSON", "parseJSONWithJSONObject: "+Weather);
             CityName = city.toString();  //获得城市名
             Tempeature = now.getString("temperature"); //获取温度

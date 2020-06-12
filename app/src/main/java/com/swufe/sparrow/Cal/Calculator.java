@@ -1,5 +1,5 @@
 package com.swufe.sparrow.Cal;
-
+import com.swufe.sparrow.Cal.Cal;
         import android.os.Bundle;
         import android.text.Html;
         import android.view.View;
@@ -15,14 +15,16 @@ package com.swufe.sparrow.Cal;
 
         import com.swufe.sparrow.R;
 
+import com.swufe.sparrow.Cal.Cal;
+
+import static com.swufe.sparrow.Cal.Cal.calrp;
+import static com.swufe.sparrow.Cal.Cal.getrp;
 
 public class Calculator extends AppCompatActivity {
 
-    private GridView mGridView = null;//操作按钮
+    private GridView mGridView = null;
 
-    //private EditText mEditInput = null;//输入框
-
-    private ArrayAdapter mAdapter = null;//适配器
+    private ArrayAdapter mAdapter = null;
 
     private final String[] mTextBtns = new String[]{
             "del","(",")","AC",
@@ -67,70 +69,11 @@ public class Calculator extends AppCompatActivity {
     /**
      * 执行 待计算表达式,当用户按下 = 号时,调用这个方法
      */
-    private void getResult() {
-
-
-        String exp = main_et_result.getText().toString();
-        if (exp == null || exp.equals(""))
-            return;
-        if (!exp.contains(""))
-            return;
-        if (clear_flag) {
-            clear_flag = false;
-            return;
-        }
-        clear_flag = true;
-        double result = 0;
-        //运算符前的数字
-        String s1 = exp.substring(0, exp.indexOf(" "));
-        //运算符
-        String op = exp.substring(exp.indexOf(" ") + 1, exp.indexOf(" ") + 2);
-        //运算符后的数字
-        String s2 = exp.substring(exp.indexOf(" ") + 3);
-        if (!s1.equals("") && !s2.equals("")) {
-            double d1 = Double.parseDouble(s1);
-            double d2 = Double.parseDouble(s2);
-            if (op.equals("+")) {
-                result = d1 + d2;
-            } else if (op.equals("-")) {
-                result = d1 - d2;
-            } else if (op.equals("*")) {
-                result = d1 * d2;
-            } else if (op.equals("/")) {
-                if (d2 == 0) {
-                    result = 0;
-                } else {
-                    result = d1 / d2;
-                }
-            }
-            if (!s1.contains(".") && !s2.contains(".") && !op.equals("/")) {
-                int r = (int) result;
-                main_et_result.setText(r + "");
-            } else {
-                main_et_result.setText(result + "");
-            }
-        } else if (!s1.equals("") && s2.equals("")) {
-            main_et_result.setText(exp);
-        } else if (s1.equals("") && !s2.equals("")) {
-            double d2 = Double.parseDouble(s2);
-            if (op.equals("+")) {
-                result = 0 + d2;
-            } else if (op.equals("-")) {
-                result = 0 - d2;
-            } else if (op.equals("*")) {
-                result = 0;
-            } else if (op.equals("/")) {
-                result = 0;
-            }
-            if (!s1.contains(".") && !s2.contains(".")) {
-                int r = (int) result;
-                main_et_result.setText(r + "");
-            } else {
-                main_et_result.setText(result + "");
-            }
-        } else {
-            main_et_result.setText("");
-        }
+    private float getResult() {
+        String string = main_et_result.getText().toString();
+        Float out = calrp(getrp(string));
+        //String exp = main_et_result.getText().toString();
+        return out;
     }
 
 
@@ -199,14 +142,15 @@ public class Calculator extends AppCompatActivity {
                     main_et_result.setText(main_et_result.getText().toString()+"*");
                     break;
                 case "=":
-                    getResult();
+                    float f = getResult();
+                    main_et_result.setText(""+f);
                     break;
                 case "AC":
                     main_et_result.setText("c");
                     clear_flag = false;
                     input = "";
                     main_et_result.setText("");
-                    break;
+                break;
                 case "del":
                     main_et_result.setText("del");
                     if(clear_flag){
