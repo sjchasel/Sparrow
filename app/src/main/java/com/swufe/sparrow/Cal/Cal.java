@@ -1,71 +1,122 @@
 package com.swufe.sparrow.Cal;
 import java.util.Stack;
 
-
 public class Cal {
 
-    static Stack<Character> op = new Stack<>();
-
-    public static Float getv(char op, Float f1, Float f2){
-        if(op == '+') return f2 + f1;
-        else if(op == '-') return f2 - f1;
-        else if(op  == '*') return f2 * f1;
-        else if(op == '/') return f2 / f1;
-        else return Float.valueOf(-0);
-    }
+        private static Stack<Integer> stackN = new Stack<Integer>();// 数字
+        private static Stack<Character> stackF = new Stack<Character>();// 符号
+        private static Stack<Character> stackZ = new Stack<Character>();// 中间
+        private static char [] ch;
+        private static char [] ch1;// 中间字符数组
+        private static int [] num = new int[10];
 
 
-    public static float calrp(String rp){
-        Stack<Float> v = new Stack<>();
-        char[] arr = rp.toCharArray();
-        int len = arr.length;
-        for(int i = 0; i < len; i++){
-            Character ch = arr[i];
-            if(ch >= '0' && ch <= '9') v.push(Float.valueOf(ch - '0'));
-            else v.push(getv(ch, v.pop(), v.pop()));
+
+        public int calcu(String str) {
+            ch = str.toCharArray();
+            int result = countHou(zhongToHou(ch));
+            return result;
         }
-        return v.pop();
-    }
 
-
-    public static String getrp(String s){
-        char[] arr = s.toCharArray();
-        int len = arr.length;
-        String out = "";
-
-        for(int i = 0; i < len; i++){
-            char ch = arr[i];
-            if(ch == ' ') continue;
-            if(ch >= '0' && ch <= '9') {
-                out+=ch;
-                continue;
+        public static int compareYXJ(char c){// 用来输出运算符的优先级
+            if(c == ')'){
+                return 1;
+            }else if(c == '+' || c == '-'){
+                return 2;
+            }else if(c == '*' || c == '/'){
+                return 3;
+            }else if(c == '('){
+                return 4;
             }
-
-            if(ch == '(') op.push(ch);
-            if(ch == '+' || ch == '-'){
-                while(!op.empty() && (op.peek() != '('))
-                    out+=op.pop();
-                op.push(ch);
-                continue;
-            }
-
-            if(ch == '*' || ch == '/'){
-                while(!op.empty() && (op.peek() == '*' || op.peek() == '/'))
-                    out+=op.pop();
-                op.push(ch);
-                continue;
-            }
-            if(ch == ')'){
-                while(!op.empty() && op.peek() != '(')
-                    out += op.pop();
-                op.pop();
-                continue;
-            }
+            return 999;
         }
-        while(!op.empty()) out += op.pop();
-        return out;
+
+        public static int operation(int a, int b, char c){// 计算方法
+            if(c == '+'){
+                return a + b;
+            }else if(c == '-'){
+                return b - a;
+            }else if(c == '*'){
+                return a * b;
+            }else if(c == '/' && a != 0){
+                return b / a;
+            }
+            return -1;
+        }
+
+        public static char[] zhongToHou(char [] ch){// 中缀表达式转换成后缀表达式
+            int n = ch.length;
+            String str = "";
+            for(int i = 0; i < n; i++){
+                if(ch[i] >= '0' && ch[i] <= '9'){// 判断是否是数字
+                    if(i + 1 < n && (ch[i+1] < '0' || ch[i+1] > '9') || i + 1 == n){// 如果一个数字的后面是运算符
+                        stackZ.push(ch[i]);
+                        stackZ.push('#');
+                    }else{// 如果是数字的情况
+                        stackZ.push(ch[i]);
+                    }
+                }else{// 是运算符
+                    if(stackF.isEmpty() || ch[i]=='(' || compareYXJ(ch[i]) > compareYXJ(stackF.peek())){// 如果运算符栈为空或者该运算符比栈顶运算符的优先级高的时候直接入栈
+                        stackF.push(ch[i]);
+                    }else if(ch[i] == ')'){// 当是右括号的时候
+                        while(stackF.peek() != '('){
+                            stackZ.push(stackF.pop());
+                        }
+                        stackF.pop();
+                    }else{// 优先级低于栈顶运算符的时候
+                        while(!stackF.isEmpty() && compareYXJ(ch[i]) <= compareYXJ(stackF.peek()) && stackF.peek() != '('){
+                            stackZ.push(stackF.pop());
+                        }
+                        stackF.push(ch[i]);
+                    }
+                }
+            }
+            while(!stackF.isEmpty()){// 当表达式走完之后将符号栈中的符号全部弹出压入中间数字栈
+                stackZ.push(stackF.pop());
+            }
+            while(!stackZ.isEmpty()){// 将中间栈中的值全部弹出得到一个倒转的后缀表达式
+                str += stackZ.pop()+"";
+            }
+            ch1 = str.toCharArray();
+            int a = ch1.length;
+            for(int i = 0; i < a/2; i++){// 该算法将ch1反转
+                char t;
+                t = ch1[i];
+                ch1[i] = ch1[a-1-i];
+                ch1[a-1-i] = t;
+            }
+            return ch1;
+        }
+
+
+        public static int countHou(char [] ch){// 计算后缀表达式
+            int n = ch.length;
+            int sum = 0;
+            int k = 0;
+            int tmp = 0;
+            for(int i = 0; i < n; i++){
+                if(ch[i] == '#'){
+                    continue;
+                }else if(ch[i] == '+' || ch[i] == '-' || ch[i] == '*' || ch[i] == '/'){// 如果是运算符，则弹出连个数字进行运算
+                    sum = operation(stackN.pop(), stackN.pop(), ch[i]);
+                    stackN.push(sum);
+                }else{// 如果是数字
+                    if(ch[i+1] == '#'){// 如果下一个是‘#’
+                        num[k++] = ch[i] - '0';
+                        for(int j = 0; j < k; j++){
+                            tmp += (num[j] * (int)Math.pow(10, k-j-1));
+                        }
+                        stackN.push(tmp);
+                        tmp = 0;
+                        k = 0;
+                    }else{// 下一个元素是数字
+                        num[k++] = ch[i] - '0';
+                    }
+                }
+            }
+            return stackN.peek();
+        }
     }
 
 
 
-}

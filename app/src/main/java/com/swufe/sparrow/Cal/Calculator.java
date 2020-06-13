@@ -8,14 +8,12 @@ import android.widget.EditText;
 import android.widget.GridView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.swufe.sparrow.R;
-import static com.swufe.sparrow.Cal.Cal.calrp;
-import static com.swufe.sparrow.Cal.Cal.getrp;
 
 public class Calculator extends AppCompatActivity {
 
-    private GridView mGridView = null;
+    private GridView gridv = null;
 
-    private ArrayAdapter mAdapter = null;
+    private ArrayAdapter adapter = null;
 
     private final String[] mTextBtns = new String[]{
             "del","(",")","AC",
@@ -34,17 +32,17 @@ public class Calculator extends AppCompatActivity {
         setContentView(R.layout.activity_calculator);
 
         result =  findViewById(R.id.edit_input);
-        mGridView =  findViewById(R.id.grid_buttons);
-        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mTextBtns);
-        mGridView.setAdapter(mAdapter);
+        gridv =  findViewById(R.id.grid_buttons);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mTextBtns);
+        gridv.setAdapter(adapter);
         result.setKeyListener(null);//禁止从键盘输入edit
-        mGridView.setOnItemClickListener(new OnButtonItemClickListener());
+        gridv.setOnItemClickListener(new OnButtonItemClickListener());
     }
 
 
-    private float getResult() {
+    public int getResult() {
         String string = result.getText().toString();
-        Float out = calrp(getrp(string));
+        int out = (new Cal()).calcu(string);
         return out;
     }
 
