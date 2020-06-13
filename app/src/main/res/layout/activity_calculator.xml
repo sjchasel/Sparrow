@@ -4,16 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.calculatortest.CalculatorActivity" >
+    android:background="@drawable/dust"
+    tools:context="com.swufe.sparrow.Cal.Calculator" >
 
-    <!-- 标题 -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="计算器"
         android:textSize="18sp"
         android:gravity="center"
-        android:background="@color/colorBlue" />
+        android:background="@drawable/memotitle" />
 
     <RelativeLayout
         android:layout_width="match_parent"

@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,7 +15,9 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="编辑备忘录"
+            android:text="编辑记事本"
+            android:gravity="center"
+            android:background="@drawable/memotitle"
             android:textSize="22sp"
             android:textStyle="bold" />
 
@@ -32,13 +35,6 @@
         android:layout_weight="1"
         android:padding="10dp"
         android:orientation="vertical">
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="内容编辑："
-            android:textSize="20sp"
-            android:layout_margin="10dp"
-            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/et_content"
@@ -46,7 +42,8 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="start"
-            android:hint="此处记录备忘事件"
+            android:hint="此处记录事件"
+            android:background="@drawable/background"
             android:textSize="20sp" />
 
         <LinearLayout

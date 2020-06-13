@@ -1,12 +1,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="@drawable/funky">
 
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
         android:text="记事本"
+        android:gravity="center"
+        android:background="@drawable/memotitle"
         android:textStyle="bold"
         android:textSize="22sp"
         android:padding="15dp"
@@ -29,7 +32,7 @@
         android:id="@+id/btn_editnote"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="添加备忘录"
+        android:text="添加事件"
         android:padding="10dp"
         android:textSize="20sp" />
 
