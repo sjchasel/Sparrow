@@ -9,7 +9,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.swufe.sparrow.R;
-import com.swufe.sparrow.R.drawable;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,10 +19,8 @@ import okhttp3.Response;
 public class WeatherMain extends AppCompatActivity implements View.OnClickListener {
 
     private EditText weather;
-    private TextView city;
     private EditText temperature;
     private String Weather;
-    private String CityName;
     private String Tempeature;
     Button sendRequest;
 
@@ -33,7 +30,6 @@ public class WeatherMain extends AppCompatActivity implements View.OnClickListen
         setContentView(R.layout.activity_weather_main);
         sendRequest =  findViewById(R.id.send_request);
         weather =  findViewById(R.id.Weather);
-        city = findViewById(R.id.City);
         temperature = findViewById(R.id.Temperature);
         sendRequest.setOnClickListener(this);
     }
@@ -54,7 +50,7 @@ public class WeatherMain extends AppCompatActivity implements View.OnClickListen
                     Request request = new Request.Builder().url("https://api.seniverse.com/v3/weather/now.json?key=SrvH71t8JeTOXNLJP&location=chengdu&language=zh-Hans&unit=c").build();//创建Request对象发起请求,记得替换成你自己的key
                     Response response = client.newCall(request).execute();//创建call对象并调用execute获取返回的数据
                     String responseData = response.body().string();
-                    showResPonse(responseData);//显示原始数据和解析后的数据
+                    showResPonse();//显示原始数据和解析后的数据
                     parseJSONWithJSONObject(responseData);//解析SSON数据
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -69,31 +65,34 @@ public class WeatherMain extends AppCompatActivity implements View.OnClickListen
             Log.i("parseJSON", "parseJSONWithJSONObject: "+jsonObject);
             JSONArray results = jsonObject.getJSONArray("results");   //得到键为results的JSONArray
             JSONObject now = results.getJSONObject(0).getJSONObject("now");//得到键值为"now"的JSONObject
-            JSONObject location = results.getJSONObject(0).getJSONObject("location");   //得到键值为location的JSONObject
             Weather = now.getString("text");//得到"now"键值的JSONObject下的"text"属性,即天气信息
+            WeatherMain.this.runOnUiThread(new Runnable() {
+                public void run() {
+                    if(Weather.equals("晴")){
+                        sendRequest.setBackgroundResource(R.drawable.qing);
+                    } else if(Weather.contains("多云")) {
+                        sendRequest.setBackgroundResource(R.drawable.yun);
+                    } else if (Weather.contains("阴")) {
+                        sendRequest.setBackgroundResource(R.drawable.yin);
+                    } else if (Weather.contains("雨")) {
+                        sendRequest.setBackgroundResource(R.drawable.yu);
+                    } else if (Weather.contains("雪")) {
+                        sendRequest.setBackgroundResource(R.drawable.xue);
+                    }
+                }
+            });
 
-//            if(Weather.equals("晴")){
-//                sendRequest.setBackgroundResource(getResources().getDrawable(R.drawable.qing));
-//            } else if(Weather.contains("多云")) {
-//                sendRequest.setBackgroundResource(getResources().getDrawable(R.drawable.yun));
-//            } else if (Weather.contains("阴")) {
-//                sendRequest.setBackgroundResource(getResources().getDrawable(R.drawable.yin));
-//            } else if (Weather.contains("雨")) {
-//                sendRequest.setBackgroundResource(getResources().getDrawable(R.drawable.yu));
-//            } else if (Weather.contains("雪")) {
-//                sendRequest.setBackgroundResource(getResources().getDrawable(R.drawable.xue));
-//            }
 
             Log.i("parseJSON", "parseJSONWithJSONObject: "+Weather);
-            CityName = city.toString();  //获得城市名
             Tempeature = now.getString("temperature"); //获取温度
+            Log.i("parseJSON", "parseJSONWithJSONObject: "+Tempeature);
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    private void showResPonse(final String response) {
-        runOnUiThread(new Runnable() {//切换到主线程,ui界面的更改不能出现在子线程,否则app会崩溃
+    private void showResPonse() {
+        runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 weather.setText(Weather);
