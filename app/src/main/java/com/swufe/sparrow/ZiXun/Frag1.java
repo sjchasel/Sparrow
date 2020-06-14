@@ -28,7 +28,10 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +43,7 @@ public class Frag1 extends ListFragment implements AdapterView.OnItemClickListen
     private ArrayList<HashMap<String, Object>> listItems;
     private int flag;
     private ProgressDialog progressDialog;
+    String TAG = "Frag1";
 
     public Frag1() {
 
@@ -47,17 +51,15 @@ public class Frag1 extends ListFragment implements AdapterView.OnItemClickListen
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_frag1, null);
-        listView = view.findViewById(android.R.id.list);
-
-
-        initListView();
-        this.setListAdapter(listItemAdapter);
-
-        listView.setOnItemClickListener(this);
+        listView = view.findViewById(android.R.id.list);//得到列表控件
+        initListView();//数据初始化
+        this.setListAdapter(listItemAdapter);//将list的适配器设置为listItemAdapter
+        listView.setOnItemClickListener(this);//为list设置点击事件
+        //保存数据的sp
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("myTest", Activity.MODE_PRIVATE);
-
         SharedPreferences.Editor editor = sharedPreferences.edit();//要获得一个edit对象才可以改变sharedPreferences
         editor.commit();
+        //gengxinpinlv(sharedPreferences);
 
         handler = new Handler() {
             @Override
@@ -131,6 +133,28 @@ public class Frag1 extends ListFragment implements AdapterView.OnItemClickListen
             return;
         }
     }
+
+//    public void gengxinpinlv(SharedPreferences sharedPreferences){
+//        String updateDate = sharedPreferences.getString("update_date","");
+//
+//        //获取当前系统时间
+//        Date today = Calendar.getInstance().getTime();
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//        final String todayStr = sdf.format(today);
+//
+//        Log.i(TAG, "onCreate: sp updateDate=" + updateDate);
+//        Log.i(TAG, "onCreate: todayStr=" + todayStr);
+//
+////判断时间
+//        if(!todayStr.equals(updateDate)){
+//            Log.i(TAG, "onCreate: 需要更新");
+//            //开启子线程
+//            Thread t = new Thread();
+//            t.start();
+//        }else{
+//            Log.i(TAG, "onCreate: 不需要更新");
+//        }
+//    }
 
     class DownloadTask extends AsyncTask<Integer, Integer, Void> {
 

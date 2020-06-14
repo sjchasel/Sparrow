@@ -35,14 +35,16 @@
         <activity android:name=".ZiXun.Frag3" />
         <activity android:name=".ZiXun.Frag2" />
         <activity android:name=".ZiXun.Frag1" />
-        <activity android:name=".ZiXun.ZiXun" />
+        <activity android:name=".ZiXun.ZiXun" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <activity android:name=".Home" />
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
     </application>

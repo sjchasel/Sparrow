@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.swufe.sparrow.Cal.Calculator;
 import com.swufe.sparrow.Memo.MemoMain;
@@ -18,6 +21,18 @@ public class Home extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.home_menu,menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Toast.makeText(this,"已退出", Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(this,MainActivity.class);
+        startActivity(i);
+        return super.onOptionsItemSelected(item);
     }
 
     public void click(View view) {
