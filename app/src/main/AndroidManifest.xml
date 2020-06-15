@@ -18,38 +18,39 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/bird"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/tubiao2"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Weather.WeatherMain">
+        <activity android:name=".Weather.WeatherMain" android:screenOrientation="portrait">
 
         </activity>
-        <activity android:name=".Memo.MemoEdit"></activity>
-        <activity android:name=".Memo.MemoMain">
+        <activity android:name=".Memo.MemoEdit" android:screenOrientation="portrait"></activity>
+        <activity android:name=".Memo.MemoMain" android:screenOrientation="portrait">
 
         </activity>
-        <activity android:name=".Cal.Calculator"><intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter></activity>
-        <activity android:name=".Task.Task" >
+        <activity android:name=".Cal.Calculator" android:screenOrientation="portrait">
 
         </activity>
-        <activity android:name=".ZiXun.Frag4" />
-        <activity android:name=".ZiXun.Frag3" />
-        <activity android:name=".ZiXun.Frag2" />
-        <activity android:name=".ZiXun.Frag1" />
-        <activity android:name=".ZiXun.ZiXun" >
+        <activity android:name=".Task.Task" android:screenOrientation="portrait">
 
         </activity>
-        <activity android:name=".Home" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".ZiXun.Frag4" android:screenOrientation="portrait" />
+        <activity android:name=".ZiXun.Frag3" android:screenOrientation="portrait" />
+        <activity android:name=".ZiXun.Frag2" android:screenOrientation="portrait" />
+        <activity android:name=".ZiXun.Frag1" android:screenOrientation="portrait" />
+        <activity android:name=".ZiXun.ZiXun" android:screenOrientation="portrait" >
 
+        </activity>
+        <activity android:name=".Home" android:screenOrientation="portrait"/>
+        <activity android:name=".MainActivity" android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
