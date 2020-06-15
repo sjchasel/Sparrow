@@ -40,9 +40,9 @@ public class Calculator extends AppCompatActivity {
     }
 
 
-    public int getResult() {
+    public float getResult() {
         String string = result.getText().toString();
-        int out = (new Cal()).calcu(string);
+        float out = (new Cal()).calcu(string);
         return out;
     }
 

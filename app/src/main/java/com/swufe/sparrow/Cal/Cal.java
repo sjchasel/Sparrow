@@ -3,7 +3,7 @@ import java.util.Stack;
 
 public class Cal {
 
-        private static Stack<Integer> stackN = new Stack<Integer>();// 数字
+        private static Stack<Float> stackN = new Stack<Float>();// 数字
         private static Stack<Character> stackF = new Stack<Character>();// 符号
         private static Stack<Character> stackZ = new Stack<Character>();// 中间
         private static char [] ch;
@@ -12,9 +12,9 @@ public class Cal {
 
 
 
-        public int calcu(String str) {
+        public float calcu(String str) {
             ch = str.toCharArray();
-            int result = countHou(zhongToHou(ch));
+            float result = countHou(zhongToHou(ch));
             return result;
         }
 
@@ -31,7 +31,7 @@ public class Cal {
             return 999;
         }
 
-        public static int operation(int a, int b, char c){// 计算方法
+        public static float operation(float a, float b, char c){// 计算方法
             if(c == '+'){
                 return a + b;
             }else if(c == '-'){
@@ -89,11 +89,11 @@ public class Cal {
         }
 
 
-        public static int countHou(char [] ch){// 计算后缀表达式
+        public static float countHou(char [] ch){// 计算后缀表达式
             int n = ch.length;
-            int sum = 0;
+            float sum = 0;
             int k = 0;
-            int tmp = 0;
+            float tmp = 0;
             for(int i = 0; i < n; i++){
                 if(ch[i] == '#'){
                     continue;

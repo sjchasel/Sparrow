@@ -29,13 +29,13 @@
         </activity>
         <activity android:name=".Memo.MemoEdit"></activity>
         <activity android:name=".Memo.MemoMain">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
-        <activity android:name=".Cal.Calculator"></activity>
+        <activity android:name=".Cal.Calculator"><intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter></activity>
         <activity android:name=".Task.Task" >
 
         </activity>
