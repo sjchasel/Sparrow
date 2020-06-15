@@ -105,7 +105,6 @@ public class Calculator extends AppCompatActivity {
                     result.setText("");
                 break;
                 case "del":
-                    //删除当前表达式的最后一位
                     result.setText(input.substring(0, input.length() -1));
                     break;
 

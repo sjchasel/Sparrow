@@ -6,11 +6,14 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
 import com.swufe.sparrow.R;
 
@@ -18,28 +21,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Task extends ListActivity implements AdapterView.OnItemLongClickListener {
-    EditText ed;
+    EditText et;
     Button button;
     ArrayAdapter<String> adapter;
     ListView listView;
     List<String> list;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task);
+
         list = new ArrayList<>();
-        list.add("看书");
+        list.add("量体温");
         list.add("散步");
+
         getListView().setOnItemLongClickListener(this);
-        button = (Button)findViewById(R.id.button);
-        ed = (EditText)findViewById(R.id.edit);
+        button = findViewById(R.id.button);
+        et = findViewById(R.id.edit);
         adapter = new ArrayAdapter<String>(Task.this, android.R.layout.simple_list_item_1,list);
         listView = findViewById(android.R.id.list);
-        listView.setAdapter(adapter);//关联适配器
+        listView.setAdapter(adapter);
         button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                String add = ed.getText().toString();
+                String add = et.getText().toString();
                 list.add(add);
             }
         });
@@ -59,7 +65,6 @@ public class Task extends ListActivity implements AdapterView.OnItemLongClickLis
             }
         }).setNegativeButton("否",null);
         builder.create().show();
-        Log.i("Task", "onItemLongClick: size=" + list.size());
 
         return true;
     }
