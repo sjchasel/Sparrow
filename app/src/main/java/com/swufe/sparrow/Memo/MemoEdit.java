@@ -18,10 +18,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class MemoEdit extends Activity implements OnClickListener {
-    private TextView tv_date;
-    private EditText et_content;
-    private Button btn_ok;
-    private Button btn_cancel;
+    private TextView tv_date;//日期
+    private EditText et_content;//内容
+    private Button btn_ok;//确定按钮
+    private Button btn_cancel;//取消按钮
     private com.swufe.sparrow.Memo.DBHelper DBHelper;
     public int enter_state = 0;//用来区分是新建一个note还是更改原来的note
     public String last_content;//用来获取edittext内容
@@ -61,6 +61,7 @@ public class MemoEdit extends Activity implements OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_ok:
+                //点击确认按钮
                 SQLiteDatabase db = DBHelper.getReadableDatabase();
                 // 获取edittext内容
                 String content = et_content.getText().toString();
@@ -75,19 +76,19 @@ public class MemoEdit extends Activity implements OnClickListener {
 
                         //向数据库添加信息
                         ContentValues values = new ContentValues();
-                        values.put("content", content);
-                        values.put("date", dateString);
-                        db.insert("note", null, values);
+                        values.put("CONTENT", content);
+                        values.put("DATE", dateString);
+                        db.insert("tb_memo", null, values);
                         finish();
                     } else {
                         Toast.makeText(MemoEdit.this, "请输入你的内容！", Toast.LENGTH_SHORT).show();
                     }
                 }
-                // 查看并修改一个已有的日志
+                //若enter_state=1，查看并修改一个已有的日志
                 else {
                     ContentValues values = new ContentValues();
-                    values.put("content", content);
-                    db.update("note", values, "content = ?", new String[]{last_content});
+                    values.put("CONTENT", content);
+                    db.update("tb_memo", values, "content = ?", new String[]{last_content});
                     finish();
                 }
                 break;
