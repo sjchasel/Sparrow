@@ -17,7 +17,7 @@ public class DBManager {
         TBNAME = DBHelper.TB_NAME;
     }
 
-    public void add(MemoItem item){
+    public void add(MemoItem item) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("content", item.getContent());
@@ -26,7 +26,7 @@ public class DBManager {
         db.close();
     }
 
-    public void addAll(List<MemoItem> list){
+    public void addAll(List<MemoItem> list) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         for (MemoItem item : list) {
             ContentValues values = new ContentValues();
@@ -37,19 +37,19 @@ public class DBManager {
         db.close();
     }
 
-    public void deleteAll(){
+    public void deleteAll() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        db.delete(TBNAME,null,null);
+        db.delete(TBNAME, null, null);
         db.close();
     }
 
-    public void delete(int id){
+    public void delete(int id) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.delete(TBNAME, "ID=?", new String[]{String.valueOf(id)});
         db.close();
     }
 
-    public void update(MemoItem item){
+    public void update(MemoItem item) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("content", item.getContent());
@@ -58,13 +58,13 @@ public class DBManager {
         db.close();
     }
 
-    public List<MemoItem> listAll(){
+    public List<MemoItem> listAll() {
         List<MemoItem> memoList = null;
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = db.query(TBNAME, null, null, null, null, null, null);
-        if(cursor!=null){
+        if (cursor != null) {
             memoList = new ArrayList<MemoItem>();
-            while(cursor.moveToNext()){
+            while (cursor.moveToNext()) {
                 MemoItem item = new MemoItem();
                 item.setId(cursor.getInt(cursor.getColumnIndex("ID")));
                 item.setContent(cursor.getString(cursor.getColumnIndex("CONTENT")));
@@ -79,11 +79,11 @@ public class DBManager {
 
     }
 
-    public MemoItem findById(int id){
+    public MemoItem findById(int id) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = db.query(TBNAME, null, "ID=?", new String[]{String.valueOf(id)}, null, null, null);
         MemoItem memoItem = null;
-        if(cursor!=null && cursor.moveToFirst()){
+        if (cursor != null && cursor.moveToFirst()) {
             memoItem = new MemoItem();
             memoItem.setId(cursor.getInt(cursor.getColumnIndex("ID")));
             memoItem.setContent(cursor.getString(cursor.getColumnIndex("CONTENT")));

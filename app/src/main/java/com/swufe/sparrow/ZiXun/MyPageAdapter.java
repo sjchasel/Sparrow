@@ -6,18 +6,19 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 public class MyPageAdapter extends FragmentPagerAdapter {
 
-    public MyPageAdapter (FragmentManager fm){
+    public MyPageAdapter(FragmentManager fm) {
         super(fm);
     }
+
     @Override
     public Fragment getItem(int position) {
-        if(position==0){
+        if (position == 0) {
             return new Frag1();
-        }else if(position==1){
+        } else if (position == 1) {
             return new Frag2();
-        }else if(position==2){
+        } else if (position == 2) {
             return new Frag3();
-        }else {
+        } else {
             return new Frag4();
         }
     }
@@ -27,12 +28,12 @@ public class MyPageAdapter extends FragmentPagerAdapter {
         return 4;
     }
 
-    public CharSequence getPageTitle(int position){
-        if(position==0){
+    public CharSequence getPageTitle(int position) {
+        if (position == 0) {
             return "好奇心日报";
-        } else if(position==1){
+        } else if (position == 1) {
             return "果壳：科学人";
-        } else if(position==2){
+        } else if (position == 2) {
             return "第一财经";
         } else {
             return "雪球：今日话题";

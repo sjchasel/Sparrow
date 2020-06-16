@@ -38,7 +38,7 @@ public class MemoEdit extends Activity implements OnClickListener {
         tv_date = findViewById(R.id.tv_date);
         et_content = findViewById(R.id.et_content);
         btn_ok = findViewById(R.id.btn_ok);
-        btn_cancel =  findViewById(R.id.btn_cancel);
+        btn_cancel = findViewById(R.id.btn_cancel);
         DBHelper = new DBHelper(this);
 
         //获取此时时刻时间

@@ -24,19 +24,19 @@ public class Home extends AppCompatActivity {
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.home_menu,menu);
+        getMenuInflater().inflate(R.menu.home_menu, menu);
         return true;
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
-        Toast.makeText(this,"已退出", Toast.LENGTH_SHORT).show();
-        Intent i = new Intent(this,MainActivity.class);
+        Toast.makeText(this, "已退出", Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
         return super.onOptionsItemSelected(item);
     }
 
     public void click(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.zixun:
                 Intent intent1 = new Intent(this, ZiXun.class);
                 startActivity(intent1);

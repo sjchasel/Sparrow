@@ -6,14 +6,11 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
 import com.swufe.sparrow.R;
 
@@ -39,10 +36,10 @@ public class Task extends ListActivity implements AdapterView.OnItemLongClickLis
         getListView().setOnItemLongClickListener(this);
         button = findViewById(R.id.button);
         et = findViewById(R.id.edit);
-        adapter = new ArrayAdapter<String>(Task.this, android.R.layout.simple_list_item_1,list);
+        adapter = new ArrayAdapter<String>(Task.this, android.R.layout.simple_list_item_1, list);
         listView = findViewById(android.R.id.list);
         listView.setAdapter(adapter);
-        button.setOnClickListener(new View.OnClickListener(){
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String add = et.getText().toString();
@@ -55,7 +52,7 @@ public class Task extends ListActivity implements AdapterView.OnItemLongClickLis
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("提示").setMessage("请确认是否删除当前数据").setPositiveButton("是",new DialogInterface.OnClickListener(){
+        builder.setTitle("提示").setMessage("请确认是否删除当前数据").setPositiveButton("是", new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -63,7 +60,7 @@ public class Task extends ListActivity implements AdapterView.OnItemLongClickLis
                 list.remove(position);
                 adapter.notifyDataSetChanged();
             }
-        }).setNegativeButton("否",null);
+        }).setNegativeButton("否", null);
         builder.create().show();
 
         return true;

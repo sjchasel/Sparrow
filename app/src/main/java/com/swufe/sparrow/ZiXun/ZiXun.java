@@ -1,4 +1,5 @@
 package com.swufe.sparrow.ZiXun;
+
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager.widget.ViewPager;
 
@@ -10,17 +11,16 @@ import com.swufe.sparrow.R;
 public class ZiXun extends FragmentActivity {
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_zi_xun);
 
-        ViewPager viewPager =  findViewById(R.id.viewpager);
+        ViewPager viewPager = findViewById(R.id.viewpager);
         MyPageAdapter pageAdapter = new MyPageAdapter(getSupportFragmentManager());
         viewPager.setAdapter(pageAdapter);
 
-        TabLayout tabLayout =  findViewById(R.id.sliding_tabs);
+        TabLayout tabLayout = findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
 
     }

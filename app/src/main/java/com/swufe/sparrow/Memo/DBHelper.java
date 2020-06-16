@@ -17,12 +17,12 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public DBHelper(Context context) {
-        super(context,DB_NAME,null,VERSION);
+        super(context, DB_NAME, null, VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE "+TB_NAME+"(ID INTEGER PRIMARY KEY AUTOINCREMENT,CONTENT TEXT,DATE TEXT)");
+        db.execSQL("CREATE TABLE " + TB_NAME + "(ID INTEGER PRIMARY KEY AUTOINCREMENT,CONTENT TEXT,DATE TEXT)");
     }
 
     @Override

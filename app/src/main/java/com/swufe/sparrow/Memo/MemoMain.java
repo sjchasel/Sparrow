@@ -1,11 +1,9 @@
 package com.swufe.sparrow.Memo;
 
-import android.app.Activity;
 import android.app.AlertDialog.Builder;
 import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,7 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MemoMain extends ListActivity implements  OnItemLongClickListener,AdapterView.OnItemClickListener {
+public class MemoMain extends ListActivity implements OnItemLongClickListener, AdapterView.OnItemClickListener {
 
     ListView listview;
     SimpleAdapter simple_adapter;
@@ -81,8 +79,6 @@ public class MemoMain extends ListActivity implements  OnItemLongClickListener,A
         DB = DbHelper.getReadableDatabase();
 
 
-
-
     }
 
 
@@ -97,7 +93,7 @@ public class MemoMain extends ListActivity implements  OnItemLongClickListener,A
             simple_adapter.notifyDataSetChanged();
         }
 
-        for(MemoItem memoItem : dbManager.listAll()){
+        for (MemoItem memoItem : dbManager.listAll()) {
             String content = memoItem.getContent();
             String date = memoItem.getDate();
             Map<String, Object> map = new HashMap<String, Object>();
@@ -118,7 +114,7 @@ public class MemoMain extends ListActivity implements  OnItemLongClickListener,A
     public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
         //获取listview中此个item中的内容
         String content = listview.getItemAtPosition(arg2) + "";
-        String content1 = content.substring(content.lastIndexOf("=") + 1,content.lastIndexOf("}"));
+        String content1 = content.substring(content.lastIndexOf("=") + 1, content.lastIndexOf("}"));
 
         Intent myIntent = new Intent(MemoMain.this, MemoEdit.class);
         Bundle bundle = new Bundle();
@@ -140,8 +136,8 @@ public class MemoMain extends ListActivity implements  OnItemLongClickListener,A
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String content = getListView().getItemAtPosition(position) + "";
-                Log.i("MemoMain", "onClick: "+content);
-                String content1 = content.substring(content.lastIndexOf("=") + 1,content.lastIndexOf("}"));
+                Log.i("MemoMain", "onClick: " + content);
+                String content1 = content.substring(content.lastIndexOf("=") + 1, content.lastIndexOf("}"));
 
                 //根据content的内容删除数据库中的记录，再刷新列表数据
 //                DB.delete("tb_memo", "content = ?", new String[]{content1});
@@ -172,8 +168,8 @@ public class MemoMain extends ListActivity implements  OnItemLongClickListener,A
 //
 //
 //                //SQLiteDatabase db = DBHelper.getReadableDatabase();
-                Log.i(TAG, "onClick: content1"+content1);
-                DB.delete("tb_memo","content = ?",new String[]{content1});
+                Log.i(TAG, "onClick: content1" + content1);
+                DB.delete("tb_memo", "content = ?", new String[]{content1});
                 RefreshNotesList();
 
             }
